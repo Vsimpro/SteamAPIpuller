@@ -5,10 +5,11 @@ import json
 import datetime
 import time
 import threading
+import os
 from datetime import date
 
 # There is currently print commands scattered around the project, 
-# Simply to ease the debug process.
+# Simply to ease the debug process.z
 
 # Global variables.
 today = date.today()
@@ -65,7 +66,7 @@ def puller():
                 datapoint = f"{point}"
                 datapoint = datapoint.replace("_", " ")
                 item_data += (f"{datapoint}: {data[point]} ")
-        pulled_data += f"\n{item}\n{item_data}"
+        pulled_data += f"\n{item} {item_data}"
     print(f"\nAcquired data for {pulled_items}.")
     database(pulled_data)
             
@@ -80,25 +81,40 @@ def print_database():
 
 # This console gives the user an ability to interact with the scraper.
 def userconsole():
+    print("Console is open! Simply type a command.")
     while True:
-        user = input("Console is open! Simply type a command.\n")
+        user = input("\n")
+        
         commands ="Avialable commands: " + "\n" "help" + "\n" + "create" + "\n"
+        commandNotFoundError = "... didn't recognise the command. Try 'help'?\n"
+
+        commands_list = ["help", "create", "create backlog", "exit"]
         sentence = user.split(" ")
-        if user == "help":
-            print(commands)
-        elif user == "Help":
-            print(commands)
-            userconsole()
-        elif "create" in sentence:
-            if "backlog" in sentence:
-                print_database()
-                pass
-            else:
-                print("Usage: 'create' [what you want to create.] \nAvialable objects: 'backlog.'")
-            pass 
+        
+        if user in commands_list:
+            if user == "help":
+                print(commands)
+            
+            elif "create" in sentence:
+                if user == "create backlog":
+                    print_database()
+                else:
+                    print("Usage: 'create' [object] \nAvialable objects: 'backlog.'") 
+            elif user == "exit":
+                print("Are you sure you want to exit the program?\nThis stops the data collection entirely.\n")
+                while True:
+                    print("yes / no")
+                    user = input("")
+                    if user == "yes":
+                        print_database()
+                        os._exit(1)
+                    elif user == "no":
+                        print("Continuing what ever I was doing.")
+                        break
+                    else:
+                        pass
         else:
-            print("... didn't recognise the command. Try 'help'?\n")
-    
+            print(commandNotFoundError)
 def loop():
     while True:
         puller()
