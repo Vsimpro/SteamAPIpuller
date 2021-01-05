@@ -13,6 +13,7 @@ from datetime import date
 
 # Global variables.
 today = date.today()
+counter = []
 
 # Pre-define skin / item names and their hash names here.
 item_list = {"Prisma":"Prisma%20Case",
@@ -26,20 +27,18 @@ datastore = {}
 def wait(timer):
     if timer < 61:
         wait_time = timer
-        print("Waiting for ", wait_time, " seconds")
-    else:
+        #print("Waiting for ", wait_time, " seconds")
+    else: 
         wait_time = time / 60
-        print("Waiting for ", wait_time, " minutes.")
+        #print("Waiting for ", wait_time, " minutes.")
     time.sleep(timer)
-    print("Continuing.")
+    #print("Continuing.")
 
 # Store the data.
 def database(pulled_data):
     dt = datetime.datetime.now()
     now = dt.strftime("%Y-%m-%d-%H:%M")
     datastore[now] = pulled_data
-
-    pass
 
 # Pull the data from Steam "API".
 def puller():
@@ -53,7 +52,7 @@ def puller():
         if data == None:
             print(f"\nError in: json.loads((requests.get(url)).content), datavalue is: {data}")
             timer = 5
-            print()
+            #print()
             wait(timer)
             puller()
         else: 
@@ -67,7 +66,7 @@ def puller():
                 datapoint = datapoint.replace("_", " ")
                 item_data += (f"{datapoint}: {data[point]} ")
         pulled_data += f"\n{item} {item_data}"
-    print(f"\nAcquired data for {pulled_items}.")
+    #print(f"\nAcquired data for {pulled_items}.")
     database(pulled_data)
             
 # Test database.
@@ -76,19 +75,20 @@ def print_database():
         for record in datastore:
             backlog = "\n" + record + " " + datastore[record] + "\n"
             file.write(backlog)
-            print(datastore)
+            #print(datastore)
     print(f"Data stored to backlog.")
 
 # This console gives the user an ability to interact with the scraper.
 def userconsole():
     print("Console is open! Simply type a command.")
     while True:
-        user = input("\n")
-        
-        commands ="Avialable commands: " + "\n" "help" + "\n" + "create" + "\n"
+        user = input("")
         commandNotFoundError = "... didn't recognise the command. Try 'help'?\n"
-
-        commands_list = ["help", "create", "create backlog", "exit"]
+        commands_list = ["help", "create", "create backlog", "exit", "status", "clear"]
+        commands = ""
+        for command in commands_list:
+            commands += command
+        
         sentence = user.split(" ")
         
         if user in commands_list:
@@ -113,10 +113,18 @@ def userconsole():
                         break
                     else:
                         pass
+            elif user == "status":
+                pullcount = 0
+                for i in counter:
+                    pullcount += 1        
+                print(f"Pullcount: {pullcount}")
+            elif user == "clear":
+                print("\n" * 50)
         else:
             print(commandNotFoundError)
 def loop():
     while True:
+        counter.append(1)
         puller()
         # print(f"Data received for desired items.\nStoring data...")
         timer = 60
