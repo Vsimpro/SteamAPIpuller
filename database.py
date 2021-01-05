@@ -10,8 +10,8 @@ def create(items):
     records = []
     for item in items:
         list_of_attributes = []
-        for key in item:
-            list_of_attributes.append(item[key])
+        for value in item:
+            list_of_attributes.append(value)
         records.append(list_of_attributes)
 
     connection.execute('INSERT INTO Data VALUES (?,?,?,?,?);', records)
