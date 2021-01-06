@@ -72,7 +72,8 @@ def print_database():
     counter = 0
     with open("backlog.txt", "a", encoding="utf-8") as file:
         timetag = ""
-        file.write(today)
+
+        file.write(timetag)
         for record in datastore:
             #file.write(record)
             for key in record:
@@ -88,44 +89,22 @@ def userconsole():
     commandline.commandOpenMsg()
     while True:
         user = input("")
-        commands_list = ["help", "create", "create backlog", "exit", "status", "clear"]
-        commands = ""
-        for command in commands_list:
-            commands += command
-        
-        sentence = user.split(" ")
-        
-        if user in commands_list:
-            if user == "help":
-                commandline.commandlist()
-            
-            elif "create" in sentence:
-                if user == "create backlog":
+        if user == "exit":
+            commandline.areYouSureMSG()
+            while True:
+                print("yes / no")
+                user = input("")
+                if user == "yes":
                     print_database()
+                    os._exit(1)
+                elif user == "no":
+                    print("Continuing what ever I was doing.")
+                    break
                 else:
-                    print("Usage: 'create' [object] \nAvialable objects: 'backlog.'") 
-            elif user == "exit":
-                print("Are you sure you want to exit the program?\nThis stops the data collection entirely.\n")
-                while True:
-                    print("yes / no")
-                    user = input("")
-                    if user == "yes":
-                        print_database()
-                        os._exit(1)
-                    elif user == "no":
-                        print("Continuing what ever I was doing.")
-                        break
-                    else:
-                        pass
-            elif user == "status":
-                pullcount = 0
-                for i in counter:
-                    pullcount += 1        
-                print(f"Pullcount: {pullcount}")
-            elif user == "clear":
-                print("\n" * 50)
+                    pass
         else:
-            commandline.commandNotFound()
+            print("This should pop out.")
+            commandline.main(user)
 # Loops the pulling process.
 def loop():
     while True:
@@ -138,7 +117,6 @@ def loop():
 def main():
     mainthread = threading.Thread(target=loop)
     mainthread.start()
-    # userconsole()
-    commandline.main()
+    userconsole()
 if __name__ =="__main__":
     main()
