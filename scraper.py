@@ -6,6 +6,7 @@ import datetime
 import time
 import threading
 import os
+import commandline
 from datetime import date
 
 # There is currently print commands scattered around the project, 
@@ -84,10 +85,9 @@ def print_database():
 
 # This console gives the user an ability to interact with the scraper.
 def userconsole():
-    print("Console is open! Simply type a command.")
+    commandline.commandOpenMsg()
     while True:
         user = input("")
-        commandNotFoundError = "... didn't recognise the command. Try 'help'?"
         commands_list = ["help", "create", "create backlog", "exit", "status", "clear"]
         commands = ""
         for command in commands_list:
@@ -97,7 +97,7 @@ def userconsole():
         
         if user in commands_list:
             if user == "help":
-                print(commands)
+                commandline.commandlist()
             
             elif "create" in sentence:
                 if user == "create backlog":
@@ -125,7 +125,7 @@ def userconsole():
             elif user == "clear":
                 print("\n" * 50)
         else:
-            print(commandNotFoundError)
+            commandline.commandNotFound()
 # Loops the pulling process.
 def loop():
     while True:
@@ -138,7 +138,7 @@ def loop():
 def main():
     mainthread = threading.Thread(target=loop)
     mainthread.start()
-    userconsole()
-
+    # userconsole()
+    commandline.main()
 if __name__ =="__main__":
     main()
