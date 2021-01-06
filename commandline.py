@@ -1,5 +1,4 @@
-import os
-from scraper import database
+from scraper import datastore
 from scraper import print_database
 from scraper import counter
 
@@ -42,18 +41,20 @@ def create(user):
         print("Usage: 'create' [object] \nAvialable objects: 'backlog.'")
 
 def main(user):
+
     sentence = user.split(" ")
     if user in commands_list:
         if user == "help":
-            commandlist()
-            
-    elif "create" in sentence:
-        create(user)
+            commandlist()    
 
-    elif user == "status":
-        pullCount()
+        elif "create" in sentence:
+            print("This pops.")
+            create(user)
 
-    elif user == "clear":
+        elif user == "status":
+            pullCount()
+
+        elif user == "clear":
             Clear()
     else:
         commandNotFound()
