@@ -1,2 +1,3 @@
-# alkoAPI
-API to get data pulled from a steam market web crawler.
+# Steam API puller
+Webcrawler that uses Steam API to pull price data from Steam market.
+
