@@ -31,8 +31,7 @@ def puller():
         time.sleep(5)
         while True:  
           if data == None:
-            print(f"Error in: json.loads((requests.get(url)).content), datavalue is: {data}")
-            print(f"Item: {item}")
+            print(f"Error: datavalue is: {data}\nThis might be due to too many pull requests.\nItem: {item}")
             time.sleep(5)
           elif data["success"] == False:
             print(f"COULD NOT PULL {item}, check it's hashname!")
@@ -78,7 +77,7 @@ def userconsole():
                     print_database()
                     os._exit(1)
                 elif user == "no":
-                    print("Continuing what ever I was doing.")
+                    print("Continuing.")
                     break
                 else:
                     pass
@@ -90,8 +89,9 @@ def loop():
     while True:
         counter.append(1)
         puller()
-        print(f"Data received for desired items.\n")
+        print(f"Data received for desired items.")
         time.sleep(120)
+        
 # Gives pulling process it's own thread, while going into a while loop for userconsole.
 def main():
     mainthread = threading.Thread(target=loop)
