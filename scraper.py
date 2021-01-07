@@ -25,42 +25,35 @@ datastore = []
 # Pull the data from Steam "API".
 def puller():
     for item in item_list:
-        url = (f"http://steamcommunity.com/market/priceoverview/?appid=730&market_hash_name={item_list[item]}&currency=3")
-        pull = requests.get(url)
-        data = json.loads(pull.content)
         time.sleep(5)
-        while True:  
-          if data == None:
-            print(f"Error: datavalue is: {data}\nThis might be due to too many pull requests.\nItem: {item}")
-            time.sleep(5)
-          elif data["success"] == False:
-            print(f"COULD NOT PULL {item}, check it's hashname!")
-            break    
-          else: 
-            data["Name"] = item
-            dt = datetime.datetime.now()
-            data["Timestamp"] = dt.strftime("%Y-%m-%d-%H:%M")
-            space = " "
-            outputgap= 30 - len(item)
-            space = space * outputgap
-            # print(f"Data for item {item}:{space}{data}")
-            datastore.append(data)
-            break
+        while True:
+            url = (f"http://steamcommunity.com/market/priceoverview/?appid=730&market_hash_name={item_list[item]}&currency=3")
+            pull = requests.get(url)
+            data = json.loads(pull.content)
+            if data == None:
+                print(f"Error: datavalue is: {data}\nThis might be due to too many pull requests.\nItem: {item}")
+                time.sleep(5)
+                pass
+            elif data["success"] == False:
+                print(f"COULD NOT PULL {item}, check it's hashname!")
+                break    
+            else: 
+                data["Name"] = item
+                dt = datetime.datetime.now()
+                data["Timestamp"] = dt.strftime("%Y-%m-%d-%H:%M")
+                space = " "
+                outputgap= 30 - len(item)
+                space = space * outputgap
+                print(f"Data for item {item}:{space}{data}")
+                datastore.append(data)
+                break
 
 # Test database.
 def print_database():
-    counter = 0
     with open("backlog.txt", "a", encoding="utf-8") as file:
-        timetag = ""
-        file.write(timetag)
-        for record in datastore:
-            #file.write(record)
-            for key in record:
-                file.write(key)
-                file.write(":")
-                backlog = str(record[key])
-                file.write(backlog)
-                file.write("\n")
+        #for record in datastore:
+        point = str(datastore)
+        file.write(point)
     print(f"Data stored to backlog.")
 
 # This console gives the user an ability to interact with the scraper.
@@ -90,7 +83,7 @@ def loop():
         counter.append(1)
         puller()
         print(f"Data received for desired items.")
-        time.sleep(120)
+        time.sleep(14000)
         
 # Gives pulling process it's own thread, while going into a while loop for userconsole.
 def main():
