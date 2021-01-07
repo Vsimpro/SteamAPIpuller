@@ -1,13 +1,15 @@
+import scraper_server
 from scraper import datastore
 from scraper import print_database
 from scraper import counter
+
 
 # Refactored commands here to ease the codeline count in scraper.py
 # Scraper.py's command's in command line should always redirect the actions here.
 # Only exception being "exit"
 
 # Global variables
-commands_list = ["help", "create", "create backlog", "exit", "status", "clear"]
+commands_list = ["help", "create", "create backlog", "exit", "status", "clear", "server", "server start", "server stop"]
 
 def commandOpenMsg():
     print("Console is open! Simply type a command.")
@@ -37,8 +39,15 @@ def create(user):
     else:
         print("Usage: 'create' [object] \nAvialable objects: 'backlog.'")
 
-def main(user):
+def server_command(user):
+    if user == "server start":
+        scraper_server.main()
+    elif user == "server stop":
+        scraper_server.stop()
+    else:
+        print("Usage: 'server' [start / stop]")
 
+def main(user):
     sentence = user.split(" ")
     if user in commands_list:
         if user == "help":
@@ -48,10 +57,16 @@ def main(user):
             print("This pops.")
             create(user)
 
+        elif "server" in sentence:
+            print("not yet implemented.")
+            server_command(user)
+        
         elif user == "status":
             pullCount()
 
         elif user == "clear":
             print("\n" * 50)
+
+
     else:
         commandNotFound()
