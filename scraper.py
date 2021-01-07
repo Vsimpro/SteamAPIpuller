@@ -89,6 +89,7 @@ def loop():
         counter.append(1)
         puller()
         print(f"Data received for desired items.")
+        print_database()
         time.sleep(14000)
         
 # Gives pulling process it's own thread, while going into a while loop for userconsole.
