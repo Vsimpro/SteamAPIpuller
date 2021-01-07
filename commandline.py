@@ -24,9 +24,6 @@ def commandlist():
 def areYouSureMSG():
     print("Are you sure you want to exit the program?\nThis stops the data collection entirely.\n")
 
-def Clear():
-    print("\n" * 50)
-
 def pullCount():
     pullcount = 0
     for i in counter:
@@ -55,6 +52,6 @@ def main(user):
             pullCount()
 
         elif user == "clear":
-            Clear()
+            print("\n" * 50)
     else:
         commandNotFound()
