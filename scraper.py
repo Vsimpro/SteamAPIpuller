@@ -17,7 +17,13 @@ today = date.today()
 counter = []
 
 # Pre-define skin / item names and their hash names here.
-item_list = {"Chroma 2":"Chroma%202%20Case", "Chroma 3":"Chroma%203%20Case"}
+item_list = {"Chroma 2":"Chroma%202%20Case", "Chroma 3":"Chroma%203%20Case", "Clutch":"Clutch%20Case", "CS20":"CS20%20Case", "Danger Zone":"Danger%20Zone%20Case",
+"Falchion":"Falchion%20Case", "Fracture":"Fracture%20Case", "Gamma":"Gamma%20Case", "Gamma 2":"Gamma%202%20Case", "Glove":"Glove%20Case", "Horizon":"Horizon%20Case", 
+"Huntsman":"Huntsman%20Weapon%20Case", "Operation Bravo":"Operation%20Bravo%20Case", "Operation Breakout Weapon":"Operation%20Breakout%20Weapon%20Case",
+"Operation Broken Fang":"Operation%20Broken%20Fang%20Case","Operation Hydra":"Operation%20Hydra%20Case", "Operation Phoenix Weapon":"Operation%20Phoenix%20Weapon%20Case",
+"Operation Vanguard Weapon":"Operation%20Vanguard%20Weapon%20Case", "Operation Wildfire":"Operation%20Wildfire%20Case", "Prisma":"Prisma%20Case",
+"Prisma 2":"Prisma%202%20Case", "Revolver":"Revolver%20Case", "Shadow":"Shadow%20Case", "Shattered Web":"Shattered%20Web%20Case",
+"Spectrum":"Spectrum%20Case", "Spectrum 2":"Spectrum%202%20Case", "Winter Offensive Weapon":"Winter%20Offensive%20Weapon%20Case"}
 
 # Stores the data with a date and time.
 datastore = []
