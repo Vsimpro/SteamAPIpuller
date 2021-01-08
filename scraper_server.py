@@ -13,6 +13,7 @@ port = 1337
 format = "utf-8"
 dc_msg = "!disconnect"
 recv_msg = "!received"
+backlog = []
 
 hostname = (socket.gethostbyname_ex(socket.gethostname())[2][2])
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -31,8 +32,11 @@ def handle_client(connection, address):
                 connected = False
                 print("[Client disconnected.]")
             else:
-                print(f"[{address}]: {msg}")
+                backlog = f"[{address}]: {msg}\n"
+                print(backlog)
                 connection.send(recv_msg.encode(format))
+                with open("remote_log.txt", "a", encoding="utf-8") as file:
+                    file.write(backlog)
                 commandline.main(msg)
     connection.close()
 
@@ -48,7 +52,7 @@ def main():
         connection, address = server.accept()
         thread = threading.Thread(target=handle_client, args=(connection, address))
         thread.start()
-        print(f"[Active threads] {threading.activeCount() - 1}")
+        print(f"[Active threads] {threading.activeCount() - 2}")
 
 
 if __name__ == "__main__":
