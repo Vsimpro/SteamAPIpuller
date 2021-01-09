@@ -1,4 +1,4 @@
-import scraper_server
+# import scraper_server
 from scraper import datastore
 from scraper import print_database
 from scraper import counter
@@ -18,6 +18,7 @@ def commandlist():
     commands = ""
     for command in commands_list:
         commands += command
+        commands += " "
     print(commands, "\n")
 
 def pullCount():
@@ -33,13 +34,13 @@ def create(user):
     else:
         print("Usage: 'create' [object] \nAvialable objects: 'backlog.'")
 
-def server_command(user):
-    if user == "server start":
-        scraper_server.main()
-    elif user == "server stop":
-        scraper_server.stop()
-    else:
-        print("Usage: 'server' [start / stop]")
+#def server_command(user):
+    #if user == "server start":
+        #scraper_server.main()
+    #elif user == "server stop":
+        #scraper_server.stop()
+    #else:
+    #    print("Usage: 'server' [start / stop]")
 
 def main(user):
     sentence = user.split(" ")
@@ -53,7 +54,7 @@ def main(user):
 
         elif "server" in sentence:
             print("not yet implemented.")
-            server_command(user)
+            # server_command(user)
         
         elif user == "status":
             pullCount()
