@@ -1,3 +1,4 @@
 *.db
 *.txt
 *scraper_server.py
+*webapp.py
