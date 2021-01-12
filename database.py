@@ -5,7 +5,7 @@ import re
 
 def create(items):
     connection = sqlite3.connect('alkonhyllyt.db')
-    connection.execute('''CREATE TABLE IF NOT EXISTS Data (ID INT PRIMARY KEY, lowest_price REAL, volume INT, median_price REAL, name TEXT, timestamp TEXT);''')
+    connection.execute('''CREATE TABLE IF NOT EXISTS Data (ID INTEGER PRIMARY KEY, lowest_price REAL, volume INT, median_price REAL, name TEXT, timestamp TEXT);''')
     
     records = []
     for item_dictionary in items:
