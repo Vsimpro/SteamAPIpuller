@@ -43,5 +43,5 @@ for timestamp in read.datadump:
     price_today[name] = timestamp[-1]
     appender(timestamp, name)
 
-for item in prediction_list:
-    print(f"{item} {prediction_list[item]}")
+#for item in prediction_list:
+    #print(f"{item} {prediction_list[item]}")
