@@ -3,6 +3,13 @@
 import sqlite3
 import re
 
+class SQL_Data():
+    def __init__(self):
+        cursor = sqlite3.connect('alkonhyllyt.db').cursor()
+        cursor.execute('''SELECT timestamp, name, lowest_price, volume, median_price FROM Data;''')
+        #datadump = cursor.fetchall()
+        self.datadump = cursor.fetchall()
+
 def create(items):
     connection = sqlite3.connect('alkonhyllyt.db')
     connection.execute('''CREATE TABLE IF NOT EXISTS Data (ID INTEGER PRIMARY KEY, lowest_price REAL, volume INT, median_price REAL, name TEXT, timestamp TEXT);''')
@@ -21,7 +28,6 @@ def create(items):
             elif key=='median_price':
                 value = float(value.replace(',','.').replace('€',''))
             list_of_attributes.append(value)
-        print(list_of_attributes)
         records.append(list_of_attributes)
 
     connection.executemany('INSERT INTO Data(lowest_price, volume, median_price, name, timestamp) VALUES (?,?,?,?,?);', records)
@@ -31,4 +37,3 @@ def create(items):
 def read():
     cursor = sqlite3.connect('alkonhyllyt.db').cursor()
     cursor.execute('''SELECT timestamp, name, lowest_price, volume, median_price FROM Data;''')
-    print(cursor.fetchall())
