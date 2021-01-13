@@ -15,6 +15,7 @@ priceY = 0
 date = ""
 price_yesterday = {}
 price_today = {}
+prediction_list = {}
 
 def appender(timestamp, name):        
     priceY = 0
@@ -30,7 +31,8 @@ def appender(timestamp, name):
         price_today[name] = priceT
     x = float(priceY) - float(priceT)
     prediction = priceT + x
-    print(f"{name}, price today: {priceT}, predicition: {prediction}")
+    prediction_list[name] = prediction
+    #print(f"{name}, price today: {priceT}, predicition: {prediction}")
 
 #Create a list of items and data.
 
@@ -40,3 +42,6 @@ for timestamp in read.datadump:
         item_list.append(name)
     price_today[name] = timestamp[-1]
     appender(timestamp, name)
+
+for item in prediction_list:
+    print(f"{item} {prediction_list[item]}")
