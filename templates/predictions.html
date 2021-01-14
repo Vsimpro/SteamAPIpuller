@@ -1,0 +1,17 @@
+<html>
+<head>
+<style>
+h1 {text-align: center;}
+p {text-align: center;}
+div {text-align: center;}
+</style>
+</head>
+<body>
+<div id="title" class="slide header">
+  <body style="background-color:black;">
+  <h1 style="color:white;">I predict that tomorrow, the prices of the cases will be...</h1>
+  {% autoescape false %}
+  <p font-size: 10px; style="color:white;">{{  variable  }}</p>
+  {% endautoescape%}
+</div>
+</html>
