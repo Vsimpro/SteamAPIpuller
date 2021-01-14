@@ -42,27 +42,23 @@ def puller():
                 time.sleep(5)
                 pass
             elif data["success"] == False:
-                print(f"COULD NOT PULL {item}, check it's hashname!")
+                print(f"COULD NOT PULL {item}, check it's hashname!")     
                 break    
             else: 
+                counter.append(1)
                 data["Name"] = item
                 dt = datetime.datetime.now()
                 data["Timestamp"] = dt.strftime("%Y-%m-%d-%H:%M")
                 space = " "
                 outputgap= 30 - len(item)
                 space = space * outputgap
-                #print(f"Data for item {item}:{space}{data}")
+                print(f"Data for item {data}")
                 datastore.append(data)
                 break
 
 # Test database.
 def print_database():
-    # database.create(datastore)
-    with open("backlog.txt", "a", encoding="utf-8") as file:
-        #for record in datastore:
-        point = str(datastore)
-        file.write(point)
-    print(f"Data stored to backlog.")
+    database.create(datastore)
 
 # This console gives the user an ability to interact with the scraper.
 def userconsole():
@@ -88,7 +84,6 @@ def userconsole():
 # Loops the pulling process.
 def loop():
     while True:
-        counter.append(1)
         puller()
         print(f"Data received for desired items.")
         print_database()
