@@ -45,6 +45,10 @@ def puller():
                 print(f"COULD NOT PULL {item}, check it's hashname!")     
                 break    
             else: 
+                low = data["lowest_price"].replace("--","")
+                data["lowest_price"] = low
+                median = data["median_price"].replace("--","")
+                data["median_price"] = median  
                 counter.append(1)
                 data["Name"] = item
                 dt = datetime.datetime.now()
