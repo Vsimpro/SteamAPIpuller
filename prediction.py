@@ -24,8 +24,6 @@ prediction_list = {}
 def appender(timestamp, name):        
     priceY = 0
     priceT = 0
-    price = timestamp[1]
-    price = timestamp[-1]
     if name in price_today:
         priceY = price_today[name]
         price_yesterday[name] = priceY
@@ -52,20 +50,30 @@ def home():
     return render_template('homepage.html')
 
 @app.route('/predictions')
-def home_button():
+def display_predictions():
     main()
     predictions = ""
     for i in prediction_list:
-        space = len("Winter Offensive Weapon")
-        spacer = len(i) - space
-        breaker = spacer * " "
-        allPredictions = f"Case: {i} will tomorrow be:{breaker} {prediction_list[i]}€ <br>"
+        case = i.replace("Operation","")
+        case = i.replace("Weapon","")
+        allPredictions = f"{case} will be: {prediction_list[i]}€ <br>"
         predictions += allPredictions
-    return render_template('predictions.html', variable=predictions)
+        header =  "And I predict --the prices for tomorrow are.."
+    return render_template('predictions.html', variable=header , pricepredicts=predictions)
 
-@app.route('/robots.txt/')
-def robots():
-    return "ladies and gentlemen, we got him."
+@app.route('/prices')
+def prices_rn():
+    prices = ""
+    main()
+    datadct = {}
+    for key in read.datadump:
+        pulldate = key[0]
+        name = key[1]
+        datadct[name]  = key[-1]
+    for name in datadct:    
+        itemdata = f"{name} Case: {datadct[name]}€ <br>"
+        prices += itemdata
+    return render_template('prices.html', variable=f"Last pull {pulldate}", pricepredicts=prices )
 
 
 if __name__ == "__main__":
