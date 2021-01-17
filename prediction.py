@@ -22,16 +22,20 @@ price_today = {}
 prediction_list = {}
 
 def appender(timestamp, name):        
-    priceY = 0
-    priceT = 0
     if name in price_today:
-        price_yesterday[name] = price_today[name]
-        price_today[name] = timestamp[name]
+        priceT = price_today[name]
     else:
-        price_today[name] = timestamp[name]
-    x = float(price_yesterday[name]) - float(price_today[name])
-    prediction = price_today[name] + x
-    prediction_list[name] = x
+        priceT = 0
+    
+    if name in price_yesterday:
+        priceY = price_yesterday[name]
+    else:
+        priceY = 0
+    
+    x = float(priceT) - float(priceY)
+    prediction = priceT + x
+    prediction_list[name] = prediction 
+    price_yesterday[name] = price_today[name]
 
 def main():
 #Create a list of items and data.
