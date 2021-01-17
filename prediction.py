@@ -58,7 +58,8 @@ def display_predictions():
     for i in prediction_list:
         case = i.replace("Operation","")
         case = i.replace("Weapon","")
-        allPredictions = f"{case} will be: {prediction_list[i]}€ <br>"
+        pred4tomorrow = round(prediction_list[i], 2)
+        allPredictions = f"{case} will be: {pred4tomorrow}€ <br>"
         predictions += allPredictions
         header =  "And I predict --the prices for tomorrow are.."
     return render_template('predictions.html', variable=header , pricepredicts=predictions)
