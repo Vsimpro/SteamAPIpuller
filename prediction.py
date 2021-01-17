@@ -31,7 +31,7 @@ def appender(timestamp, name):
         price_today[name] = timestamp[name]
     x = float(price_yesterday[name]) - float(price_today[name])
     prediction = price_today[name] + x
-    prediction_list[name] = prediction
+    prediction_list[name] = x
 
 def main():
 #Create a list of items and data.
