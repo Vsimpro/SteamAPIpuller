@@ -25,14 +25,12 @@ def appender(timestamp, name):
     priceY = 0
     priceT = 0
     if name in price_today:
-        priceY = price_today[name]
-        price_yesterday[name] = priceY
+        price_yesterday[name] = price_today[name]
         priceT = price_today[name]
     else:
-        priceT = price_yesterday[name]
-        price_today[name] = priceT
-    x = float(priceY) - float(priceT)
-    prediction = priceT + x
+        price_today[name] = timestamp[name]
+    x = float(price_yesterday[name]) - float(price_today[name])
+    prediction = price_today[name] + x
     prediction_list[name] = prediction
 
 def main():
