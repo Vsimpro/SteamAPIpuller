@@ -26,7 +26,7 @@ def appender(timestamp, name):
     priceT = 0
     if name in price_today:
         price_yesterday[name] = price_today[name]
-        priceT = price_today[name]
+        price_today[name] = timestamp[name]
     else:
         price_today[name] = timestamp[name]
     x = float(price_yesterday[name]) - float(price_today[name])
